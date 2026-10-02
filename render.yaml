@@ -1,0 +1,108 @@
+# ==============================================================================
+# DHOOD PLUS WHATSAPP AI BOT - RENDER BLUEPRINT SPECIFICATION
+# Deploy entire stack: Redis + FastAPI Backend + Baileys Gateway + Next.js UI
+# ==============================================================================
+
+services:
+  # ----------------------------------------------------------------------------
+  # 1. REDIS KEY-VALUE CACHE & STATE STORE
+  # Used for: Message Deduplication, Rate-limiting, Conversation Session Caching
+  # ----------------------------------------------------------------------------
+  - type: keyvalue
+    name: dhoodh-plus-redis
+    region: frankfurt # Change to oregon, singapore, or ohio if preferred
+    plan: free # or starter
+    maxmemoryPolicy: allkeys-lru
+    ipAllowList: [] # Allows all internal Render services to connect
+
+  # ----------------------------------------------------------------------------
+  # 2. PYTHON FASTAPI AI BACKEND (With FFmpeg for WhatsApp Voice Notes)
+  # ----------------------------------------------------------------------------
+  - type: web
+    name: dhoodh-plus-backend
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    region: frankfurt
+    plan: free # or starter
+    healthCheckPath: /api/health
+    envVars:
+      - key: ENV
+        value: production
+      - key: APP_NAME
+        value: "Dhoodh Plus WhatsApp AI Agent"
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: LLM_PROVIDER
+        value: openai
+      - key: LLM_API_KEY
+        sync: false
+      - key: LLM_MODEL
+        value: gpt-4o-mini
+      - key: LLM_TEMPERATURE
+        value: "0.2"
+      - key: EMBEDDING_PROVIDER
+        value: openai
+      - key: EMBEDDING_API_KEY
+        sync: false
+      - key: EMBEDDING_MODEL
+        value: text-embedding-3-small
+      - key: REDIS_ENABLED
+        value: "true"
+      - key: REDIS_URL
+        fromService:
+          type: keyvalue
+          name: dhoodh-plus-redis
+          property: connectionString
+
+  # ----------------------------------------------------------------------------
+  # 3. WHATSAPP BAILEYS GATEWAY (Live Connection to WhatsApp Phone)
+  # ----------------------------------------------------------------------------
+  - type: web
+    name: dhoodh-plus-gateway
+    runtime: docker
+    dockerfilePath: ./whatsapp-gateway/Dockerfile
+    dockerContext: ./whatsapp-gateway
+    region: frankfurt
+    plan: free # Note: upgrade to 'starter' ($7/mo) if adding persistent disk
+    healthCheckPath: /api/status
+    # Uncomment disk block on Render Starter plan to persist WhatsApp pairing:
+    # disk:
+    #   name: baileys-auth-disk
+    #   mountPath: /data/auth_info_baileys
+    #   sizeGB: 1
+    envVars:
+      - key: AUTH_DIR
+        value: /data/auth_info_baileys
+      - key: BACKEND_API_URL
+        fromService:
+          type: web
+          name: dhoodh-plus-backend
+          property: host
+      - key: REDIS_URL
+        fromService:
+          type: keyvalue
+          name: dhoodh-plus-redis
+          property: connectionString
+
+  # ----------------------------------------------------------------------------
+  # 4. NEXT.JS ADMIN DASHBOARD & MONITORING UI
+  # ----------------------------------------------------------------------------
+  - type: web
+    name: dhoodh-plus-frontend
+    runtime: node
+    rootDir: frontend
+    region: frankfurt
+    plan: free # or starter
+    buildCommand: "npm install && npm run build"
+    startCommand: "npm start"
+    envVars:
+      - key: NODE_VERSION
+        value: 20.12.0
+      - key: NEXT_PUBLIC_API_URL
+        fromService:
+          type: web
+          name: dhoodh-plus-backend
+          property: host

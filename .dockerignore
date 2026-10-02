@@ -1,0 +1,16 @@
+.git
+.github
+node_modules
+.next
+venv
+__pycache__
+*.pyc
+*.pyo
+storage/documents/*
+!storage/documents/.keep
+whatsapp-gateway/node_modules
+whatsapp-gateway/auth_info_baileys
+frontend/node_modules
+frontend/.next
+.env
+.env.local

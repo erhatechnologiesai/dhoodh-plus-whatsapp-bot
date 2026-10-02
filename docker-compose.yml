@@ -1,0 +1,137 @@
+services:
+  # ============================================================================
+  # 1. Redis: In-memory cache, message deduplication & rate-limiting
+  # ============================================================================
+  redis:
+    image: redis:7-alpine
+    container_name: dhoodh_redis
+    restart: always
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    ports:
+      - "127.0.0.1:6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    networks:
+      - dhoodh_network
+
+  # ============================================================================
+  # 2. FastAPI Backend: Python 3.11, RAG, Supabase, FFmpeg voice note transcriber
+  # ============================================================================
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: dhoodh_backend
+    restart: always
+    env_file:
+      - .env
+    environment:
+      - HOST=0.0.0.0
+      - PORT=8000
+      - REDIS_URL=redis://redis:6379
+      - REDIS_ENABLED=true
+      - WHATSAPP_GATEWAY_URL=http://whatsapp-gateway:3001
+    ports:
+      - "8000:8000"
+    volumes:
+      - backend_storage:/app/storage
+    depends_on:
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - dhoodh_network
+
+  # ============================================================================
+  # 3. WhatsApp Baileys Gateway: Node.js 20 persistent socket to WhatsApp Web
+  # ============================================================================
+  whatsapp-gateway:
+    build:
+      context: ./whatsapp-gateway
+      dockerfile: Dockerfile
+    container_name: dhoodh_gateway
+    restart: always
+    env_file:
+      - .env
+    environment:
+      - PORT=3001
+      - AUTH_DIR=/data/auth_info_baileys
+      - BACKEND_API_URL=http://backend:8000
+      - REDIS_URL=redis://redis:6379
+    ports:
+      - "3001:3001"
+    volumes:
+      # CRITICAL: Named volume ensures WhatsApp session credentials survive reboots and builds
+      - baileys_auth:/data/auth_info_baileys
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - dhoodh_network
+
+  # ============================================================================
+  # 4. Next.js 14 Frontend: Admin Dashboard & Monitoring
+  # ============================================================================
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: "/api"
+    container_name: dhoodh_frontend
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - NODE_ENV=production
+    depends_on:
+      - backend
+    networks:
+      - dhoodh_network
+
+  # ============================================================================
+  # 5. Nginx Reverse Proxy: SSL, Single-Domain Routing & Security
+  # ============================================================================
+  nginx:
+    image: nginx:alpine
+    container_name: dhoodh_nginx
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - certbot_conf:/etc/letsencrypt
+      - certbot_www:/var/www/certbot
+    depends_on:
+      - frontend
+      - backend
+      - whatsapp-gateway
+    networks:
+      - dhoodh_network
+
+networks:
+  dhoodh_network:
+    driver: bridge
+
+volumes:
+  redis_data:
+    driver: local
+  backend_storage:
+    driver: local
+  baileys_auth:
+    driver: local
+  certbot_conf:
+    driver: local
+  certbot_www:
+    driver: local

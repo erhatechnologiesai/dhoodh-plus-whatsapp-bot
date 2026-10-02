@@ -1,0 +1,70 @@
+Total messages: 78
+================================================================================
+[2026-10-02T08:07:14.592211+00:00] [USER] (wamid.voice.be5ec6ea):
+   میں نے اس وائس میں کہا ہے کہ مجھے اس کے فائدے بتاؤ اور اس کی پرائز بھی ساتھ بتاؤ اس کے فائدے بھی ساتھ بتاؤ کے فائ
+--------------------------------------------------------------------------------
+[2026-10-02T08:07:15.265766+00:00] [ASSISTANT] (None):
+   Ji janab! Jaisa ke maine ooper bataya, kya aap iska order book karwana chahtay hain ya mazeed koi baat poochna chahtay hain?
+--------------------------------------------------------------------------------
+[2026-10-02T08:07:35.238971+00:00] [USER] (wamid.voice.c3d7015a):
+   اچھا میں یہ کیسے ارڈر کر سکتا ہوں
+--------------------------------------------------------------------------------
+[2026-10-02T08:07:35.917703+00:00] [ASSISTANT] (None):
+   Maazrat janab, voice note ki awaz saaf nahi aa saki. Baraye meharbani dobara voice bhej dein ya likh kar bata dein taake main Doodh Plus ke hawale se mukammal rehnumai kar sakoon.
+--------------------------------------------------------------------------------
+[2026-10-02T08:07:39.077368+00:00] [USER] (wamid.voice.108cc9d9):
+   اور مجھے اس کی پرائز بھی بتا
+--------------------------------------------------------------------------------
+[2026-10-02T08:07:39.744836+00:00] [ASSISTANT] (None):
+   Doodh Plus:
+1kg = Rs. 1,750
+10kg = Rs. 12,500
+Pakistan mein free home delivery aur COD available hai.
+--------------------------------------------------------------------------------
+[2026-10-02T08:08:48.580153+00:00] [USER] (wamid.voice.ca9ab7fe):
+   اچھا اس کے اپ کی برانڈ کا نام کیا ہے
+--------------------------------------------------------------------------------
+[2026-10-02T08:08:49.544895+00:00] [ASSISTANT] (None):
+   Doodh Plus hamare certified idaray **Allah Ho Traders** ka official product hai. Ye janwaron ke doodh, fat aur sehat ke liye aik aala quality mineral mixture aur growth booster hai.
+
+Aapke paas konsa janwar hai, kya aap iske hawale se mazeed rehnumai chahte hain?
+--------------------------------------------------------------------------------
+[2026-10-02T08:09:12.351611+00:00] [USER] (wamid.voice.35f6a91f):
+   اچھا بکری کا جو دودھ ہوتا ہے وہ کیسے بڑھا سکتے
+--------------------------------------------------------------------------------
+[2026-10-02T08:09:13.889178+00:00] [ASSISTANT] (None):
+   Ji bilkul, Doodh Plus bakri ke liye use kiya ja sakta hai. Bakri ko rozana 20-30 gram feed mein mix karke dein. Ye milk quantity aur quality ko support karta hai. improvement 10-15 din mein noticeable ho sakti hai.
+--------------------------------------------------------------------------------
+[2026-10-02T08:09:27.401648+00:00] [USER] (wamid.voice.ee4570b8):
+   اچھا دودھ پلس سے جو میری بھینس ہے وہ کم دودھ دیتی ہے اس کا دودھ کیسے
+--------------------------------------------------------------------------------
+[2026-10-02T08:09:28.361716+00:00] [ASSISTANT] (None):
+   Ji bilkul, Doodh Plus bhains ke liye use kiya ja sakta hai. Isay rozana 100 gram wanda, daliya ya charay mein mix karke dein. Ye mineral/nutritional requirements ko support karta hai aur milk quantity aur quality ko behtar karne mein madad karta hai. milk production mein improvement 10-15 din mein noticeable ho sakti hai.
+--------------------------------------------------------------------------------
+[2026-10-02T08:09:41.174481+00:00] [USER] (wamid.voice.7f7e71a9):
+   فیز دودھ کی جو پرائز ہے وہ مجھے بتاؤ وہ کیا ہے اور میں اس کو کیسے ارڈر کر سکتا ہوں
+--------------------------------------------------------------------------------
+[2026-10-02T08:09:41.8137+00:00] [ASSISTANT] (None):
+   Doodh Plus:
+1kg = Rs. 1,750
+10kg = Rs. 12,500
+Pakistan mein free home delivery aur COD available hai.
+--------------------------------------------------------------------------------
+[2026-10-02T08:09:53.499057+00:00] [USER] (wamid.voice.81f6290c):
+   اچھا اس کی ڈلیوری تو تفریح کے کتنے دن تک میرے گھر ا جائے
+--------------------------------------------------------------------------------
+[2026-10-02T08:09:54.170493+00:00] [ASSISTANT] (None):
+   Pakistan mein free home delivery available hai aur payment Cash on Delivery par parcel receive karte waqt hoti hai.
+--------------------------------------------------------------------------------
+[2026-10-02T08:10:07.212847+00:00] [USER] (wamid.voice.6a7e7601):
+   میں نے کہا یہ کتنے دن تک میرے پاس اجائے گا
+--------------------------------------------------------------------------------
+[2026-10-02T08:10:08.044179+00:00] [ASSISTANT] (None):
+   Maazrat janab, voice note ki awaz saaf nahi aa saki. Baraye meharbani dobara voice bhej dein ya likh kar bata dein taake main Doodh Plus ke hawale se mukammal rehnumai kar sakoon.
+--------------------------------------------------------------------------------
+[2026-10-02T08:10:27.508472+00:00] [USER] (wamid.voice.b17afcb1):
+   میں یہ کہہ رہا ہوں کہ یہ پارسل میرے تک میرے پاس کب تک ا جائیگا کتنے دنوں میں پہنچ
+--------------------------------------------------------------------------------
+[2026-10-02T08:10:28.472532+00:00] [ASSISTANT] (None):
+   Ji, kya aap iska order book karwana chahtay hain ya price aur khorak ke baray mein mazeed kuch poochna chahtay hain?
+--------------------------------------------------------------------------------

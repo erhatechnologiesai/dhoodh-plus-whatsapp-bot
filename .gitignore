@@ -1,0 +1,41 @@
+# Environment secrets
+.env
+.env.local
+*.env
+!.env.example
+!backend/.env.example
+!frontend/.env.example
+!whatsapp-gateway/.env.example
+
+# Python virtual environment & cache
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+
+# Node dependencies & builds
+node_modules/
+frontend/node_modules/
+whatsapp-gateway/node_modules/
+frontend/.next/
+frontend/out/
+
+# WhatsApp session credentials (Must remain secret/private)
+whatsapp-gateway/auth_info_baileys/
+auth_info_baileys/
+
+# Storage files (keep directory structure)
+storage/documents/*
+!storage/documents/.keep
+
+# System & IDE files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+scratch/
+*.pem
+*.ppk
+*.log

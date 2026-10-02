@@ -1,0 +1,8 @@
+__pycache__
+*.pyc
+*.pyo
+venv
+.env
+storage/documents/*
+!storage/documents/.keep
+.pytest_cache
